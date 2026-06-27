@@ -11,7 +11,7 @@ import { t } from '@/i18n';
 import type { MenuTemplate } from '@/menu';
 import type { MenuContext } from '@/types/contexts';
 
-const blurList = [0, 6, 12, 18, 24, 32, 40];
+const blurList = [0, 6, 12, 18, 24];
 const percentList = [0, 0.15, 0.25, 0.35, 0.45, 0.6, 0.75, 0.9, 1];
 const surfaceList: GlassSurface[] = ['nav', 'sidebar', 'player', 'menu'];
 
@@ -116,6 +116,19 @@ export const onMenu = async ({
   if (!albumThemeOn && config.tintStrength > 0) {
     menu.unshift({
       label: t('plugins.liquid-glass.menu.hint.albumColor'),
+      enabled: false,
+    });
+  }
+
+  const transparentPlayerOn =
+    (
+      appConfig.get('plugins.transparent-player' as never) as
+        | { enabled?: boolean }
+        | undefined
+    )?.enabled ?? false;
+  if (transparentPlayerOn) {
+    menu.unshift({
+      label: t('plugins.liquid-glass.menu.hint.transparentPlayer'),
       enabled: false,
     });
   }

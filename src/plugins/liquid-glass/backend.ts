@@ -16,19 +16,26 @@ const apply = (window: BrowserWindow, config: LiquidGlassConfig) => {
       window.setVibrancy(
         config.vibrancyMaterial as Parameters<BrowserWindow['setVibrancy']>[0],
       );
+      // Punch the window background fully transparent so the vibrancy
+      // material is visible behind the page (the renderer's .lg-native
+      // class transparentizes body so the page no longer paints over it).
+      window.setBackgroundColor('#00000000');
     } else {
       window.setVibrancy(null);
+      window.setBackgroundColor('#000000');
     }
   } catch (err) {
     // Unsupported material/OS version: degrade to the CSS-only layer.
     console.warn(LoggerPrefix, 'liquid-glass: setVibrancy failed', err);
     window.setVibrancy(null);
+    window.setBackgroundColor('#000000');
   }
 };
 
 const restore = (window: BrowserWindow) => {
   if (!is.macOS()) return;
   window.setVibrancy(null);
+  window.setBackgroundColor('#000000');
 };
 
 export const backend = createBackend({

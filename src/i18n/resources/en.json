@@ -635,7 +635,8 @@
           }
         },
         "hint": {
-          "albumColor": "Enable \"Album Color Theme\" for the album tint"
+          "albumColor": "Enable \"Album Color Theme\" for the album tint",
+          "transparentPlayer": "Disable \"Transparent Player\" — it conflicts with Liquid Glass's window vibrancy"
         }
       }
     },

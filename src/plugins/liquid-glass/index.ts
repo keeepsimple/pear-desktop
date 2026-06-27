@@ -32,7 +32,6 @@ export default createPlugin({
   menu: onMenu,
   backend,
   renderer: {
-    styleSheet: null as CSSStyleSheet | null,
     applyVars(config: LiquidGlassConfig) {
       const root = document.documentElement;
       root.style.setProperty('--lg-blur', `${config.blur}px`);
@@ -47,27 +46,30 @@ export default createPlugin({
           config.enabled && config.surfaces.includes(s),
         );
       }
+      body.classList.toggle(
+        'lg-native',
+        config.enabled &&
+          config.nativeVibrancy &&
+          !!(
+            window.electronIs &&
+            window.electronIs.macOS &&
+            window.electronIs.macOS()
+          ),
+      );
     },
     async start({ getConfig }) {
-      this.styleSheet = new CSSStyleSheet();
-      await this.styleSheet.replace(style);
-      document.adoptedStyleSheets = [
-        ...document.adoptedStyleSheets,
-        this.styleSheet,
-      ];
       this.applyVars(await getConfig());
     },
     onConfigChange(newConfig: LiquidGlassConfig) {
       this.applyVars(newConfig);
     },
-    async stop() {
-      await this.styleSheet?.replace('');
+    stop() {
       const root = document.documentElement;
       root.style.removeProperty('--lg-blur');
       root.style.removeProperty('--lg-opacity');
       root.style.removeProperty('--lg-tint');
       const body = document.body;
-      body.classList.remove('liquid-glass', 'lg-specular');
+      body.classList.remove('liquid-glass', 'lg-specular', 'lg-native');
       for (const s of ALL_SURFACES) body.classList.remove(`lg-surface-${s}`);
     },
   },

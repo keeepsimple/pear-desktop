@@ -5,7 +5,7 @@
   --lg-tint-rgb: var(--ytmusic-album-color, 255, 255, 255);
 }
 
-/* shared glass surface mixin via :is() groups */
+/* glass surfaces — comma-grouped selectors */
 .liquid-glass.lg-surface-nav #nav-bar-background,
 .liquid-glass.lg-surface-nav ytmusic-tabs,
 .liquid-glass.lg-surface-sidebar #guide-wrapper,
@@ -33,4 +33,36 @@
 .liquid-glass.lg-surface-menu ytmusic-menu-popup-renderer {
   border-radius: 14px !important;
   overflow: hidden !important;
+}
+
+/* Native macOS vibrancy layer (toggled by the renderer only on macOS when
+   nativeVibrancy is on). The window background is punched transparent in the
+   backend, so here we let the NSVisualEffectView show through the page and
+   behind the now-more-translucent chrome, while keeping the scrolling content
+   on a semi-opaque panel so text stays readable — glass CHROME, readable
+   CONTENT, not a uniform wash. */
+body.lg-native {
+  background-color: transparent !important;
+}
+
+/* Chrome reads glassier over the vibrancy: drop the solid base alpha toward
+   transparent while keeping the album-tint gradient + backdrop-filter from
+   the rule above. */
+.liquid-glass.lg-native.lg-surface-nav #nav-bar-background,
+.liquid-glass.lg-native.lg-surface-nav ytmusic-tabs,
+.liquid-glass.lg-native.lg-surface-sidebar #guide-wrapper,
+.liquid-glass.lg-native.lg-surface-sidebar ytmusic-guide-renderer,
+.liquid-glass.lg-native.lg-surface-player ytmusic-player-bar,
+.liquid-glass.lg-native.lg-surface-menu tp-yt-paper-listbox,
+.liquid-glass.lg-native.lg-surface-menu ytmusic-menu-popup-renderer {
+  background-color: rgba(18, 18, 18, calc(var(--lg-opacity) * 0.4)) !important;
+}
+
+/* Keep the primary scrolling content readable: a semi-opaque backdrop so the
+   desktop shows mainly at the window background / behind the chrome rather
+   than straight through the song list. */
+.liquid-glass.lg-native ytmusic-app-layout #content,
+.liquid-glass.lg-native #browse-page,
+.liquid-glass.lg-native ytmusic-player-page {
+  background: rgba(0, 0, 0, 0.55) !important;
 }
