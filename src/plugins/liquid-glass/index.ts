@@ -1,3 +1,4 @@
+import { onMenu } from './menu';
 import style from './style.css?inline';
 import {
   VibrancyMaterial,
@@ -27,6 +28,7 @@ export default createPlugin({
   restartNeeded: false,
   config: defaultConfig,
   stylesheets: [style],
+  menu: onMenu,
   renderer: {
     styleSheet: null as CSSStyleSheet | null,
     applyVars(config: LiquidGlassConfig) {
