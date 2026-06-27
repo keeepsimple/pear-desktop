@@ -809,6 +809,28 @@
         }
       }
     },
+    "queue-manager": {
+      "description": "Manage the play queue — reorder, remove, jump to a track, smart-shuffle, clear, and save or restore the queue",
+      "name": "Queue Manager",
+      "menu": {
+        "button-placement": {
+          "label": "Button placement",
+          "nav-bar": "Navigation bar",
+          "player-bar": "Player bar"
+        },
+        "confirm-clear": "Confirm before clearing the queue",
+        "set-hotkey": "Set toggle hotkey",
+        "show-button": "Show queue button",
+        "smart-shuffle": "Smart shuffle"
+      },
+      "prompt": {
+        "hotkey": {
+          "label": "Press the key combination to toggle the queue panel",
+          "title": "Queue Manager hotkey",
+          "toggle": "Toggle queue panel"
+        }
+      }
+    },
     "scrobbler": {
       "description": "Add scrobbling support (etc. last.fm, Listenbrainz)",
       "dialog": {
