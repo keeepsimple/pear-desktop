@@ -87,15 +87,22 @@ export default createPlugin<
     enabled: false,
   },
   stylesheets: [style],
-  backend({ ipc }) {
-    ipc.handle('music-together:prompt', async (title: string, label: string) =>
-      prompt({
-        title,
-        label,
-        type: 'input',
-        ...promptOptions(),
-      }),
-    );
+  backend: {
+    start({ ipc }) {
+      ipc.handle(
+        'music-together:prompt',
+        async (title: string, label: string) =>
+          prompt({
+            title,
+            label,
+            type: 'input',
+            ...promptOptions(),
+          }),
+      );
+    },
+    stop({ ipc }) {
+      ipc.removeHandler('music-together:prompt');
+    },
   },
   renderer: {
     updateNext: false,

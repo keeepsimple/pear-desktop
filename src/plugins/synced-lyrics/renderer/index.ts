@@ -85,6 +85,16 @@ export const renderer = createRenderer<
   },
 
   stop() {
+    if (this.updateTimestampInterval) {
+      clearInterval(this.updateTimestampInterval);
+      this.updateTimestampInterval = undefined;
+    }
+
+    this.observer?.disconnect();
+    this.observer = undefined;
+
+    _ytAPI?.removeEventListener('videodatachange', this.videoDataChange);
+
     disposeReactiveRoot();
   },
 });

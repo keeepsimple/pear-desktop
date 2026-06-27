@@ -97,8 +97,13 @@ const handleData = async (
     if (microformat.pageOwnerDetails?.externalChannelId) {
       songInfo.artistUrl = `https://music.\u0079\u006f\u0075\u0074\u0075\u0062\u0065.com/channel/${microformat.pageOwnerDetails.externalChannelId}`;
     }
-    // Used for options.resumeOnStart
-    config.set('url', microformat.urlCanonical);
+    // Used for options.resumeOnStart.
+    // Guard the write: config.set serializes the entire store and writes it to
+    // disk synchronously on the main process, so only persist when the value
+    // actually changed (handleData runs on every video-src-changed event).
+    if (config.get('url') !== microformat.urlCanonical) {
+      config.set('url', microformat.urlCanonical);
+    }
     songInfo.alternativeTitle = microformat.linkAlternates.find(
       (link) => link.title,
     )?.title;

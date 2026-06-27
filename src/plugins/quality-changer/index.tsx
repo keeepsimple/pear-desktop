@@ -15,29 +15,34 @@ export default createPlugin({
     enabled: false,
   },
 
-  backend({ ipc, window }) {
-    ipc.handle(
-      'peard:quality-changer',
-      async (qualityLabels: string[], currentIndex: number) =>
-        await dialog.showMessageBox(window, {
-          type: 'question',
-          buttons: qualityLabels,
-          defaultId: currentIndex,
-          title: t(
-            'plugins.quality-changer.backend.dialog.quality-changer.title',
-          ),
-          message: t(
-            'plugins.quality-changer.backend.dialog.quality-changer.message',
-          ),
-          detail: t(
-            'plugins.quality-changer.backend.dialog.quality-changer.detail',
-            {
-              quality: qualityLabels[currentIndex],
-            },
-          ),
-          cancelId: -1,
-        }),
-    );
+  backend: {
+    start({ ipc, window }) {
+      ipc.handle(
+        'peard:quality-changer',
+        async (qualityLabels: string[], currentIndex: number) =>
+          await dialog.showMessageBox(window, {
+            type: 'question',
+            buttons: qualityLabels,
+            defaultId: currentIndex,
+            title: t(
+              'plugins.quality-changer.backend.dialog.quality-changer.title',
+            ),
+            message: t(
+              'plugins.quality-changer.backend.dialog.quality-changer.message',
+            ),
+            detail: t(
+              'plugins.quality-changer.backend.dialog.quality-changer.detail',
+              {
+                quality: qualityLabels[currentIndex],
+              },
+            ),
+            cancelId: -1,
+          }),
+      );
+    },
+    stop({ ipc }) {
+      ipc.removeHandler('peard:quality-changer');
+    },
   },
 
   renderer: {
