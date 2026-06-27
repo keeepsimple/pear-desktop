@@ -5,6 +5,7 @@ import {
   type GlassSurface,
   type LiquidGlassConfig,
 } from './types';
+import * as appConfig from '@/config';
 import { t } from '@/i18n';
 
 import type { MenuTemplate } from '@/menu';
@@ -104,6 +105,19 @@ export const onMenu = async ({
         })),
       },
     );
+  }
+
+  const albumThemeOn =
+    (
+      appConfig.get('plugins.album-color-theme' as never) as
+        | { enabled?: boolean }
+        | undefined
+    )?.enabled ?? false;
+  if (!albumThemeOn && config.tintStrength > 0) {
+    menu.unshift({
+      label: t('plugins.liquid-glass.menu.hint.albumColor'),
+      enabled: false,
+    });
   }
 
   return menu;
