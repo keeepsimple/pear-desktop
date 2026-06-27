@@ -34,8 +34,12 @@ const apply = (window: BrowserWindow, config: LiquidGlassConfig) => {
 
 const restore = (window: BrowserWindow) => {
   if (!is.macOS()) return;
-  window.setVibrancy(null);
-  window.setBackgroundColor('#000000');
+  try {
+    window.setVibrancy(null);
+    window.setBackgroundColor('#000000');
+  } catch (err) {
+    console.warn(LoggerPrefix, 'liquid-glass: restore failed', err);
+  }
 };
 
 export const backend = createBackend({

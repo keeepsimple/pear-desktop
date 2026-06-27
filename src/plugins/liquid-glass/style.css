@@ -41,7 +41,7 @@
    behind the now-more-translucent chrome, while keeping the scrolling content
    on a semi-opaque panel so text stays readable — glass CHROME, readable
    CONTENT, not a uniform wash. */
-body.lg-native {
+body.liquid-glass.lg-native {
   background-color: transparent !important;
 }
 
