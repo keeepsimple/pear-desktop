@@ -1,0 +1,36 @@
+/* Driven by CSS custom properties set by the renderer.
+   Tint reuses album-color-theme's --ytmusic-album-color ("R, G, B");
+   fallback to neutral white when that plugin is disabled. */
+.liquid-glass {
+  --lg-tint-rgb: var(--ytmusic-album-color, 255, 255, 255);
+}
+
+/* shared glass surface mixin via :is() groups */
+.liquid-glass.lg-surface-nav #nav-bar-background,
+.liquid-glass.lg-surface-nav ytmusic-tabs,
+.liquid-glass.lg-surface-sidebar #guide-wrapper,
+.liquid-glass.lg-surface-sidebar ytmusic-guide-renderer,
+.liquid-glass.lg-surface-player ytmusic-player-bar,
+.liquid-glass.lg-surface-menu tp-yt-paper-listbox,
+.liquid-glass.lg-surface-menu ytmusic-menu-popup-renderer {
+  background-color: rgba(18, 18, 18, var(--lg-opacity)) !important;
+  background-image: linear-gradient(
+    rgba(var(--lg-tint-rgb), calc(var(--lg-tint) * 0.6)),
+    rgba(var(--lg-tint-rgb), calc(var(--lg-tint) * 0.6))
+  ) !important;
+  backdrop-filter: blur(var(--lg-blur)) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(180%) !important;
+}
+
+.liquid-glass.lg-specular.lg-surface-nav #nav-bar-background,
+.liquid-glass.lg-specular.lg-surface-player ytmusic-player-bar,
+.liquid-glass.lg-specular.lg-surface-menu tp-yt-paper-listbox {
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+}
+
+.liquid-glass.lg-surface-menu tp-yt-paper-listbox,
+.liquid-glass.lg-surface-menu ytmusic-menu-popup-renderer {
+  border-radius: 14px !important;
+  overflow: hidden !important;
+}
