@@ -600,6 +600,45 @@
       },
       "name": "In-App Menu"
     },
+    "liquid-glass": {
+      "description": "Frosted, album-tinted glass for the nav bar, sidebar, player bar and menus",
+      "name": "Liquid Glass",
+      "menu": {
+        "blur": { "label": "Blur", "submenu": { "px": "{{value}}px" } },
+        "opacity": {
+          "label": "Glass opacity",
+          "submenu": { "percent": "{{value}}%" }
+        },
+        "tint": {
+          "label": "Album tint",
+          "submenu": { "percent": "{{value}}%" }
+        },
+        "specular": { "label": "Specular edge highlight" },
+        "nativeVibrancy": { "label": "Native window blur (macOS)" },
+        "material": {
+          "label": "Vibrancy material (macOS)",
+          "submenu": {
+            "under-window": "Under Window",
+            "under-page": "Under Page",
+            "content": "Content",
+            "fullscreen-ui": "Fullscreen UI",
+            "window": "Window"
+          }
+        },
+        "surfaces": {
+          "label": "Surfaces",
+          "submenu": {
+            "nav": "Nav bar",
+            "sidebar": "Sidebar",
+            "player": "Player bar",
+            "menu": "Menus"
+          }
+        },
+        "hint": {
+          "albumColor": "Enable \"Album Color Theme\" for the album tint"
+        }
+      }
+    },
     "lumiastream": {
       "description": "Adds Lumia Stream support",
       "name": "Lumia Stream [Beta]"
