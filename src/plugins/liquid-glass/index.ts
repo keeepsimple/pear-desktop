@@ -1,3 +1,4 @@
+import { backend } from './backend';
 import { onMenu } from './menu';
 import style from './style.css?inline';
 import {
@@ -29,6 +30,7 @@ export default createPlugin({
   config: defaultConfig,
   stylesheets: [style],
   menu: onMenu,
+  backend,
   renderer: {
     styleSheet: null as CSSStyleSheet | null,
     applyVars(config: LiquidGlassConfig) {
